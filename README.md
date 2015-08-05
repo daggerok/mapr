@@ -6,14 +6,15 @@ MapR practice (gradle)
     $ java -jar mr1/build/libs/mr1-1.0.jar mr1/src/test/resources/receipts.txt mr1/build/result # run job
     $ cat mr1/build/result/part-r-00000 # check result
     
-    # or on hadoop:
+now try with hadoop:
+
     $ scp mr1/build/libs/mr1-1.0.jar user01@maprdemo:~/mr1.jar
     $ scp mr1/src/test/resources/receipts.txt user01@maprdemo:~/input
     $ ssh user01@maprdemo
     $ hadoop jar mr1.jar input result # run job (should done much faster)
     $ cat result/part-r-00000 # check result
 
-to build faster *use gradle as daemon*:
+to build faster *use gradle as daemon:*
 **mac:**
 
     $ touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=true" > ~/.gradle/gradle.properties
