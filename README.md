@@ -14,8 +14,10 @@ MapR practice (gradle)
     $ cat result/part-r-00000 # check result
 
 to build faster *use gradle as daemon*:
-    
-    # mac:
+**mac:**
+
     $ touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=true" > ~/.gradle/gradle.properties
-    # windows:
+
+**windows:**
+
     $ (if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle") && (echo foo >> "%HOMEPATH%/.gradle/gradle.properties")
