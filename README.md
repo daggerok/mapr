@@ -1,11 +1,9 @@
 MapR practice (gradle)
 ======================
-    ```shell
     $ git clone https://github.com/daggerok/mapr.git --depth=1
     $ cd mapr
     $ gradle clean :mr1:build
     $ java -jar mr1/build/libs/mr1-1.0.jar mr1/src/test/resources/receipts.txt build/result
-    ```
 
 where n is example number
 
