@@ -5,8 +5,6 @@ MapR practice (gradle)
     $ gradle clean :mr1:build
     $ java -jar mr1/build/libs/mr1-1.0.jar mr1/src/test/resources/receipts.txt build/result
 
-where n is example number
-
 to build faster *use gradle as daemon*:
     
     # mac:
