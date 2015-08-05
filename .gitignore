@@ -1,0 +1,13 @@
+# gradle/build
+**/.gradle
+**/build
+# idea
+**/.idea
+**/*.iml
+# eclipse
+**/.settings/
+**/.project
+**/.classpath
+# os hidden
+**/Thumbs.db
+**/.DS_Store

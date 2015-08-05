@@ -1,0 +1,22 @@
+subprojects {
+    group "com.daggerok.mapr"
+    version "1.0"
+
+    apply plugin: "java"
+
+    repositories {
+        jcenter()
+        maven { url "http://repository.mapr.com/maven/" }
+    }
+
+    dependencies {
+        compile "org.apache.hadoop:hadoop-core:1.0.4"
+    }
+
+    jar {
+        manifest {
+            attributes "Main-Class": "com.daggerok.mapr.Main"
+        }
+        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    }
+}
