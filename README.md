@@ -8,7 +8,7 @@ MapR practice (gradle)
 
 where n is example number
 
-build faster: *use gradle as daemon*:
+build faster. *use gradle as daemon*:
     
     # mac:
     $ touch ~/.gradle/gradle.properties && echo "org.gradle.daemon=true" > ~/.gradle/gradle.properties
