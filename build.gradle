@@ -17,6 +17,8 @@ subprojects {
         manifest {
             attributes "Main-Class": "com.daggerok.mapr.Main"
         }
-        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
     }
 }

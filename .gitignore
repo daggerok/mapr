@@ -1,13 +1,9 @@
 # gradle/build
-**/.gradle
-**/build
+**/.gradle/
+**/build/
 # idea
-**/.idea
+**/.idea/
 **/*.iml
-# eclipse
-**/.settings/
-**/.project
-**/.classpath
 # os hidden
 **/Thumbs.db
 **/.DS_Store
