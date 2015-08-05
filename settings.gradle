@@ -1,3 +1,3 @@
 rootProject.name = "mapr"
-include "mapreduce-1"
-include "mapreduce-2"
+include "mr1"
+include "mr2"
