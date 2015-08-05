@@ -14,7 +14,7 @@ now try with hadoop:
     $ hadoop jar mr1.jar input result # run job (should done much faster)
     $ cat result/part-r-00000 # check result
 
-to build faster **use gradle as daemon**
+to build faster **use gradle as daemon:**
 
 *mac:*
 
