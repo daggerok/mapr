@@ -16,7 +16,7 @@ now try with hadoop (download and run mapr vm sandbox):
 
 get more information about MapR here: https://www.mapr.com/
 
-**note1**: you must to configure needed mode in build.gradle for running tasks
+**note1**: you must configure needed mode in build.gradle for running tasks
 
 1. to run jobs locally (java -jar ...) build jar by gradle fatJar task with dependencies:
 
