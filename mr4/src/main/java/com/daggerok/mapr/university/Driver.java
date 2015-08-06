@@ -1,11 +1,11 @@
-package com.daggerok.mapr.receipts;
+package com.daggerok.mapr.university;
 
-import com.daggerok.mapr.Main;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -19,14 +19,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
 
+
 public class Driver extends Configured implements Tool {
-    private static final Log log = LogFactory.getLog(Driver.class);
+    private static final Log log = LogFactory.getLog(Mapper.class);
 
     public static void runJob(String[] args) throws Exception {
         System.exit(ToolRunner.run(new Configuration(), new Driver(), args));
     }
 
-    @Override
     public int run(String[] args) throws Exception {
         if (null == args || args.length != 2) {
             log.error("usage:\n java -jar $jarFile $inputFile $outputDir");
@@ -52,17 +52,22 @@ public class Driver extends Configured implements Tool {
         return job(input, output);
     }
 
-    private int job(String input, String output) throws Exception {
-        Job job = new Job(getConf(), Main.class.getName());
+    private int job(String input, String output) throws IOException, ClassNotFoundException, InterruptedException {
+        Job job = new Job(getConf(), Driver.class.getName());
 
         job.setJarByClass(Driver.class);
         job.setMapperClass(Mapper.class);
         job.setReducerClass(Reducer.class);
-        job.setInputFormatClass(TextInputFormat.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(Text.class);
 
-        // setup input and output paths
+        job.setInputFormatClass(TextInputFormat.class);
+        getConf().set("textinputformat.record.delimiter", "))");
+
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(IntWritable.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        // input and output paths
         FileInputFormat.addInputPath(job, new Path(input));
         FileOutputFormat.setOutputPath(job, new Path(output));
 

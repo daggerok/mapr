@@ -1,4 +1,4 @@
-package com.daggerok.mapr.receipts;
+package com.daggerok.mapr.receiptsmaponly;
 
 import com.daggerok.mapr.Main;
 import org.apache.commons.logging.Log;
@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 
 public class Driver extends Configured implements Tool {
-    private static final Log log = LogFactory.getLog(Driver.class);
+    private static final Log log = LogFactory.getLog(Main.class);
 
     public static void runJob(String[] args) throws Exception {
         System.exit(ToolRunner.run(new Configuration(), new Driver(), args));
@@ -55,9 +55,9 @@ public class Driver extends Configured implements Tool {
     private int job(String input, String output) throws Exception {
         Job job = new Job(getConf(), Main.class.getName());
 
-        job.setJarByClass(Driver.class);
+        job.setJarByClass(Main.class);
         job.setMapperClass(Mapper.class);
-        job.setReducerClass(Reducer.class);
+        //job.setReducerClass(Reducer.class);
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
