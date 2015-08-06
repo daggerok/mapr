@@ -23,3 +23,5 @@ to build faster **use gradle as daemon**:
 *windows:*
 
     $ (if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle") && (echo foo >> "%HOMEPATH%/.gradle/gradle.properties")
+
+get more information about MapR here: https://www.mapr.com/
