@@ -33,12 +33,12 @@ public class Main extends Configured implements Tool {
         }
 
         String input = args[0];
-        String output = args[1];
-
         if (Files.notExists(Paths.get(input))) {
-            log.error("input file isn't found.");
+            log.error("input file wasn't found.");
             System.exit(-2);
         }
+        
+        String output = args[1];
         try {
             Files.deleteIfExists(Paths.get(output));
         } catch (IOException e) {
@@ -47,6 +47,7 @@ public class Main extends Configured implements Tool {
                 log.warn("output dir is exists. using: " + output);
             }
         }
+        
         return job(input, output);
     }
 
