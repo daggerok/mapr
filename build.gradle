@@ -8,19 +8,23 @@ subprojects {
     targetCompatibility = 1.7
 
     repositories {
-        jcenter()
         maven { url "http://repository.mapr.com/maven/"}
+        jcenter()
+    }
+
+    configurations {
+        compile.exclude group: "com.sun.jdmk"
+        compile.exclude module: "jmxri"
     }
 
     dependencies {
-        // run job local, require: gradle fatJar
-        compile "org.apache.hadoop:hadoop-core:1.0.3"
+        def hadoopVersion = "1.0.3"
+        def maprVersion = "$hadoopVersion-mapr-2.1.3.2"
 
-        /*// run job on mapr cluster (sandbox): gradle jar
-        compile("org.apache.hadoop:hadoop-core:1.0.3-mapr-3.0.2") {
-            exclude group: "com.sun.jdmk"
-            exclude module: "jmxri"
-        }*/
+        compile "org.apache.hadoop:hadoop-core:$hadoopVersion",
+                "org.apache.hadoop:hadoop-core:$maprVersion",
+                "com.mapr.hadoop:maprfs:$maprVersion",
+                "com.mapr.hadoop:maprfs-jni:$maprVersion"
     }
 
     def mainClass = "com.daggerok.mapr.Main"

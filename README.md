@@ -18,23 +18,23 @@ get more information about MapR here: https://www.mapr.com/
 
 **note1**: you must configure needed mode in build.gradle for running tasks
 
-1. to run jobs locally (java -jar ...) build jar by gradle fatJar task with dependencies:
+1. to run job locally (ie: java -jar $jarFile) you must build **fat** jar file:
 
-        compile "org.apache.hadoop:hadoop-core:1.0.3"
+        $ gradle jatFar
 
-2. to run jobs on mapr cluster (hadoop jar ...) build jar by gradle jar task with dependencies:
+2. to run job on mapr cluster (ie: hadoop jar $jarFile) you can use regular jar file:
 
-        compile("org.apache.hadoop:hadoop-core:1.0.3-mapr-3.0.2") {
-            exclude group: "com.sun.jdmk"
-            exclude module: "jmxri"
-        }
+        $ gradle jar
     
 **note2**: with java -jar ... command on windows os you can get error:
 
+    $ java -jar mr1/build/libs/mr1-1.0.jar <some_args>
     SEVERE: PriviledgedActionException as:$user cause:java.io.IOException: 
     Failed to set permissions of path: \tmp\hadoop-$user\mapred\staging\$user$someNumbers\.staging to 0700
 
-*solution*: run this command on unix :) for example, use mapr sandbox
+*solution*: run this command on unix :) for example, mapr sandbox:
+    
+    $ scp mr1/build/libs/mr1-1.0.jar user01@maprdemo:~/mr1.jar && ssh user01@maprdemo && java -jar mr1.jar <some_args>
 
 **note3**: to build faster **use gradle as daemon**:
 
