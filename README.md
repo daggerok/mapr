@@ -26,15 +26,13 @@ get more information about MapR here: https://www.mapr.com/
 
         $ gradle jar
     
-**note2**: with java -jar ... command on windows os you can get error:
-
+**note2**: you use windows and fatJar command fails with error:
+    
     $ java -jar mr1/build/libs/mr1-1.0.jar <some_args>
     SEVERE: PriviledgedActionException as:$user cause:java.io.IOException: 
     Failed to set permissions of path: \tmp\hadoop-$user\mapred\staging\$user$someNumbers\.staging to 0700
 
-*solution*: run this command on unix :) for example, mapr sandbox:
-    
-    $ scp mr1/build/libs/mr1-1.0.jar user01@maprdemo:~/mr1.jar && ssh user01@maprdemo && java -jar mr1.jar <some_args>
+*solution*: run it on unix:) use sandbox
 
 **note3**: to build faster **use gradle as daemon**:
 
