@@ -1,4 +1,4 @@
-package com.daggerok.mapr;
+package com.daggerok.mapr.receipts;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

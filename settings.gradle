@@ -1,3 +1,5 @@
 rootProject.name = "mapr"
+include "mr0"
 include "mr1"
 include "mr2"
+

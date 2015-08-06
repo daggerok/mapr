@@ -1,12 +1,11 @@
 package com.daggerok.mapr;
 
+import com.daggerok.mapr.wordcounter.Driver;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        // do more examples...
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
+        Driver.runJob(args);
     }
 }
