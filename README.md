@@ -34,7 +34,7 @@ get more information about MapR here: https://www.mapr.com/
     SEVERE: PriviledgedActionException as:$user cause:java.io.IOException: 
     Failed to set permissions of path: \tmp\hadoop-$user\mapred\staging\$user$someNumbers\.staging to 0700
 
-*solution*: run this command on unix :) use mapr sandbox
+*solution*: run this command on unix :) for example, use mapr sandbox
 
 **note3**: to build faster **use gradle as daemon**:
 
