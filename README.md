@@ -2,7 +2,7 @@ MapR practice (gradle)
 ======================
     $ git clone https://github.com/daggerok/mapr.git --depth=1
     $ cd mapr
-    $ gradle clean :mr1:build
+    $ gradle clean :mr1:jar
     $ java -jar mr1/build/libs/mr1-1.0.jar mr1/src/test/resources/receipts.txt mr1/build/result
     $ cat mr1/build/result/part-r-00000 # check job result
     
@@ -16,7 +16,27 @@ now try with hadoop (download and run mapr vm sandbox):
 
 get more information about MapR here: https://www.mapr.com/
 
-note: to build faster **use gradle as daemon**:
+**note1**: you must to configure needed mode in build.gradle for running tasks
+
+1. to run jobs locally (java -jar ...) build jar by gradle fatJar task with dependencies:
+
+        compile "org.apache.hadoop:hadoop-core:1.0.3"
+
+2. to run jobs on mapr cluster (hadoop jar ...) build jar by gradle jar task with dependencies:
+
+        compile("org.apache.hadoop:hadoop-core:1.0.3-mapr-3.0.2") {
+            exclude group: "com.sun.jdmk"
+            exclude module: "jmxri"
+        }
+    
+**note2**: with java -jar ... command on windows os you can get error:
+
+    SEVERE: PriviledgedActionException as:$user cause:java.io.IOException: 
+    Failed to set permissions of path: \tmp\hadoop-$user\mapred\staging\$user1407984158\.staging to 0700
+
+*solution*: run this command on unix :) use mapr sandbox
+
+**note3**: to build faster **use gradle as daemon**:
 
 *unix:*
 
@@ -24,5 +44,4 @@ note: to build faster **use gradle as daemon**:
 
 *windows:*
 
-    $ (if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle") && (echo foo >> "%HOMEPATH%/.gradle/gradle.properties")
-
+    $ (if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle") && (echo org.gradle.daemon=true >> "%HOMEPATH%/.gradle/gradle.properties")

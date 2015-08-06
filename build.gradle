@@ -9,19 +9,29 @@ subprojects {
 
     repositories {
         jcenter()
-        maven { url "http://repository.mapr.com/maven/" }
+        maven { url "http://repository.mapr.com/maven/"}
     }
 
     dependencies {
-        compile "org.apache.hadoop:hadoop-core:1.0.4"
+        // run job local, require: gradle fatJar
+        compile "org.apache.hadoop:hadoop-core:1.0.3"
+
+        //// run job on mapr cluster (sandbox): gradle jar
+        /*
+        compile("org.apache.hadoop:hadoop-core:1.0.3-mapr-3.0.2") {
+            exclude group: "com.sun.jdmk"
+            exclude module: "jmxri"
+        }
+        */
     }
 
-    jar {
-        manifest {
-            attributes "Main-Class": "com.daggerok.mapr.Main"
-        }
-        from {
-            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-        }
+    def mainClass = "com.daggerok.mapr.Main"
+
+    jar { manifest { attributes "Main-Class": "$mainClass" } }
+
+    task fatJar(type: Jar) {
+        manifest { attributes "Main-Class": "$mainClass" }
+        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+        with jar
     }
 }
