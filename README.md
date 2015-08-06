@@ -44,4 +44,5 @@ get more information about MapR here: https://www.mapr.com/
 
 *windows:*
 
-    $ (if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle") && (echo org.gradle.daemon=true >> "%HOMEPATH%/.gradle/gradle.properties")
+    $ if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle"
+    $ echo org.gradle.daemon=true >> "%HOMEPATH%/.gradle/gradle.properties"
