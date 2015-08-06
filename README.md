@@ -32,7 +32,7 @@ get more information about MapR here: https://www.mapr.com/
 **note2**: with java -jar ... command on windows os you can get error:
 
     SEVERE: PriviledgedActionException as:$user cause:java.io.IOException: 
-    Failed to set permissions of path: \tmp\hadoop-$user\mapred\staging\$user1407984158\.staging to 0700
+    Failed to set permissions of path: \tmp\hadoop-$user\mapred\staging\$user$someNumbers\.staging to 0700
 
 *solution*: run this command on unix :) use mapr sandbox
 
