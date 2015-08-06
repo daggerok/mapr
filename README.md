@@ -14,7 +14,9 @@ now try with hadoop (download and run mapr vm sandbox):
     $ hadoop jar mr1.jar in1 out1 # job should be done much faster)
     $ cat out1/part-r-00000 # check result
 
-to build faster **use gradle as daemon**:
+get more information about MapR here: https://www.mapr.com/
+
+note: to build faster **use gradle as daemon**:
 
 *mac:*
 
@@ -24,4 +26,3 @@ to build faster **use gradle as daemon**:
 
     $ (if not exist "%HOMEPATH%/.gradle" mkdir "%HOMEPATH%/.gradle") && (echo foo >> "%HOMEPATH%/.gradle/gradle.properties")
 
-get more information about MapR here: https://www.mapr.com/
