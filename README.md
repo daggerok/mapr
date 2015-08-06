@@ -11,7 +11,7 @@ now try with hadoop:
     $ scp mr1/build/libs/mr1-1.0.jar user01@maprdemo:~/mr1.jar
     $ scp mr1/src/test/resources/receipts.txt user01@maprdemo:~/in1
     $ ssh user01@maprdemo
-    $ hadoop jar mr1.jar in1 out1 # run job (should done much faster)
+    $ hadoop jar mr1.jar in1 out1 # run job (should be done much faster)
     $ cat out1/part-r-00000 # check result
 
 to build faster **use gradle as daemon**:
