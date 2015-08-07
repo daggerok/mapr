@@ -11,45 +11,38 @@ import java.util.StringTokenizer;
 
 public class Mapper extends org.apache.hadoop.mapreduce.Mapper<LongWritable, Text, Text, IntWritable> {
     private static final Log log = LogFactory.getLog(Mapper.class);
+    private static final String satVerbal = "sat verbal";
+    private static final String satMath = "sat math";
 
     @Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String record = value.toString();
 
-        if (!record.contains("sat math") || !record.contains("sat verbal")) {
-            return;
+        if (record.contains(satVerbal)) {
+            int verbal = find(satVerbal, record);
+
+            log.info(satVerbal + ": " + verbal);
+            context.write(new Text("satv"), new IntWritable(verbal));
         }
 
-        StringTokenizer lineTokenizer = new StringTokenizer(record, "\n");
-        String line = null;
+        if (record.contains(satMath)) {
+            int math = find(satMath, record);
 
-        while (lineTokenizer.hasMoreTokens()) {
-            line = lineTokenizer.nextToken().toString();
-            if (line.contains("verbal")) {
-                break;
-            }
+            log.info(satMath + ": " + math);
+            context.write(new Text("satm"), new IntWritable(math));
         }
-
-        int verbal = new Integer(parse(line)).intValue();
-
-        log.info("verbal:"+verbal);
-
-        while (lineTokenizer.hasMoreTokens()) {
-            line = lineTokenizer.nextToken().toString();
-            if (line.contains("math")) {
-                break;
-            }
-        }
-
-        int math = new Integer(parse(line)).intValue();
-
-        log.info("math:"+math);
-
-        context.write(new Text("satv"), new IntWritable(verbal));
-        context.write(new Text("satm"), new IntWritable(math));
     }
 
-    private static String parse(String line) {
-        return line.split("\\s+")[3].split("\\)")[0];
+    private static int find(String what, String where) {
+        String line = "";
+
+        for (StringTokenizer lineTokenizer = new StringTokenizer(where, "\n");
+             lineTokenizer.hasMoreTokens() && !line.contains(what);
+             line = lineTokenizer.nextToken().toString());
+        return parse(line);
+    }
+
+    private static int parse(String string) {
+        return new Integer(string.split("\\s+")[3].split("\\)")[0]).intValue();
     }
 }

@@ -14,7 +14,7 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, IntWritab
 
     @Override
     public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-        int min = Integer.MIN_VALUE, max = Integer.MAX_VALUE, times = 0, avr = 0;
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, mean = 0, times = 0;
 
         for (IntWritable value : values) {
             int current = value.get();
@@ -25,16 +25,16 @@ public class Reducer extends org.apache.hadoop.mapreduce.Reducer<Text, IntWritab
             if (max < current) {
                 max = current;
             }
-            avr += current;
+            mean += current;
             times++;
         }
 
         log.info(String.format("%s_min=%s", key.toString(), min));
         log.info(String.format("%s_max=%s", key.toString(), max));
-        log.info(String.format("%s_mean=%s", key.toString(), (avr+0.0f)/times));
+        log.info(String.format("%s_mean=%s", key.toString(), (mean+0.0f)/times));
 
         context.write(new Text(key.toString() + "_min"), new FloatWritable(min));
         context.write(new Text(key.toString() + "_max"), new FloatWritable(max));
-        context.write(new Text(key.toString() + "_mean"), new FloatWritable((avr+0.0f)/times));
+        context.write(new Text(key.toString() + "_mean"), new FloatWritable((mean+0.0f)/times));
     }
 }

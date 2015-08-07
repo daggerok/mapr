@@ -6,7 +6,7 @@ MapR practice (gradle)
     $ java -jar mr1/build/libs/mr1-1.0.jar mr1/src/test/resources/receipts.txt mr1/build/result
     $ cat mr1/build/result/part-r-00000 # check job result
     
-now try with hadoop (download and run mapr vm sandbox):
+now try with hadoop (download and run mapr vm sandbox). copy target jar with data on maprdemo host and connect there via ssh:
 
     $ scp mr1/build/libs/mr1-1.0.jar user01@maprdemo:~/mr1.jar
     $ scp mr1/src/test/resources/receipts.txt user01@maprdemo:~/in1
@@ -15,6 +15,17 @@ now try with hadoop (download and run mapr vm sandbox):
     $ cat out1/part-r-00000 # check result
 
 get more information about MapR here: https://www.mapr.com/
+
+**remote debug**
+
+1. copy target jar with data on maprdemo host and connect there via ssh
+2. prepare remote debug configuration on you ide. for example, idea connects to the application started with arguments:
+
+        -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+
+3. as fast as you can click run remote debug in your IDE right after you run java command with neede debug arguments on remote host:
+
+        $ java -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar mr1.jar in1 out1
 
 **note1**: you must configure needed mode in build.gradle for running tasks
 

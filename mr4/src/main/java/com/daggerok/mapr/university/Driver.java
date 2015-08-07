@@ -34,36 +34,35 @@ public class Driver extends Configured implements Tool {
         }
 
         String input = args[0];
+
         if (Files.notExists(Paths.get(input))) {
             log.error("input file wasn't found.");
             System.exit(-2);
         }
 
         String output = args[1];
-        try {
-            Files.deleteIfExists(Paths.get(output));
-        } catch (IOException e) {
-            if (Files.exists(Paths.get(output))) {
-                output += new Date().getTime();
-                log.warn("output dir is exists. using: " + output);
-            }
-        }
 
+        if (Files.exists(Paths.get(output))) {
+            output += new Date().getTime();
+            log.warn("output dir is exists. using: " + output);
+        }
         return job(input, output);
     }
 
     private int job(String input, String output) throws IOException, ClassNotFoundException, InterruptedException {
-        Job job = new Job(getConf(), Driver.class.getName());
+        getConf().set("textinputformat.record.delimiter", "))");
+
+        Job job = new Job(getConf(), Driver.class.getPackage().getName());
 
         job.setJarByClass(Driver.class);
         job.setMapperClass(Mapper.class);
         job.setReducerClass(Reducer.class);
 
         job.setInputFormatClass(TextInputFormat.class);
-        getConf().set("textinputformat.record.delimiter", "))");
-
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
+        // mapper key-value
+        //job.setMapOutputKeyClass(Text.class);
+        //job.setMapOutputValueClass(IntWritable.class);
+        // reducer key-value
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
