@@ -18,12 +18,12 @@ get more information about MapR here: https://www.mapr.com/
 
 **remote debug**
 
-1. copy target jar with data on maprdemo host and connect there via ssh
+1. copy your fat jar with data on maprdemo host and connect there via ssh
 2. prepare remote debug configuration on you ide. for example, idea connects to the application started with arguments:
 
-        -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+        -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
 
-3. as fast as you can click run remote debug in your IDE right after you run java command with neede debug arguments on remote host:
+3. remote debug in your IDE right after you run java command with neede debug arguments on remote host:
 
         $ java -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar mr1.jar in1 out1
 
