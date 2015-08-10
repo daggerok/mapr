@@ -25,6 +25,8 @@ subprojects {
                 "org.apache.hadoop:hadoop-core:$maprVersion",
                 "com.mapr.hadoop:maprfs:$maprVersion",
                 "com.mapr.hadoop:maprfs-jni:$maprVersion"
+
+        testCompile "junit:junit:4.4","org.apache.mrunit:mrunit:0.9.0-incubating:hadoop1"
     }
 
     def mainClass = "com.daggerok.mapr.Main"
