@@ -17,7 +17,7 @@ public class Mapper extends org.apache.hadoop.mapreduce.Mapper<LongWritable, Tex
         StringTokenizer input = new StringTokenizer(value.toString(), ",");
 
         if (6 != input.countTokens()) {
-            log.warn("input has wrong fields number: " + input.countTokens());
+            log.warn("input has wrong (not " + 6 + ") fields number: " + input.countTokens());
             StringBuilder details = new StringBuilder();
             for (int i = 0; input.hasMoreTokens(); i++) {
                 details.append(i).append(":").append(input.nextToken()).append(";");
