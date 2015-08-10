@@ -7,13 +7,14 @@ import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class DriverTest {
     private static MapDriver<LongWritable, Text, Text, IntWritable> mapDriver;
 
     @Before
     public void setUp() throws Exception {
-        Mapper mapper = new Mapper();
-        mapDriver = MapDriver.newMapDriver(mapper);
+        mapDriver = MapDriver.newMapDriver(new Mapper());
     }
 
     /*"(def-instance Adelphi\n" +                       //0
