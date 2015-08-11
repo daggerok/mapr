@@ -26,7 +26,7 @@ public class ReducerTest {
 
         reduceDriver
                 .withInput(key, Arrays.asList(new IntWritable(1), new IntWritable(2), new IntWritable(3)))
-                .withOutput(key, new FloatWritable((0.0f+1+2+3)/3))
+                .withOutput(key, new FloatWritable((1+2+3)/3.0f))
                 .runTest();
     }
 }
