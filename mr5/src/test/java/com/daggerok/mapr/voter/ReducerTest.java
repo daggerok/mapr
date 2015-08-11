@@ -23,6 +23,7 @@ public class ReducerTest {
     @Test
     public void testReduce() throws Exception {
         Text key = new Text("democrat");
+
         reduceDriver
                 .withInput(key, Arrays.asList(new IntWritable(1), new IntWritable(2), new IntWritable(3)))
                 .withOutput(key, new FloatWritable((0.0f+1+2+3)/3))
