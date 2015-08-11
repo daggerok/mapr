@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -50,26 +51,24 @@ public class Driver extends Configured implements Tool {
     }
 
     private int job(String input, String output) throws IOException, ClassNotFoundException, InterruptedException {
+        // setup delimeter
         getConf().set("textinputformat.record.delimiter", "\n");
-
         Job job = new Job(getConf(), Driver.class.getPackage().getName());
-
+        // set map-reduce
         job.setJarByClass(Driver.class);
         job.setMapperClass(Mapper.class);
-        //job.setReducerClass(Reducer.class);
-
+        job.setReducerClass(Reducer.class);
+        // input format
         job.setInputFormatClass(TextInputFormat.class);
         // mapper key-value
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
         // reducer key-value
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
-
+        job.setOutputValueClass(FloatWritable.class);
         // input and output paths
         FileInputFormat.addInputPath(job, new Path(input));
         FileOutputFormat.setOutputPath(job, new Path(output));
-
         // launch job synchronously
         return job.waitForCompletion(true) ? 0 : 1;
     }
