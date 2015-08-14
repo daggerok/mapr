@@ -1,0 +1,49 @@
+# before steps:
+# $ ssh user01@maprdemo
+# $ hbase shell
+
+hbase> create "/user/user01/Customer", {NAME => "Address"}, {NAME => "Order"}
+
+hbase> put "/user/user01/Customer", "maksim.kostromin", "Address:city", "Odessa"
+hbase> put "/user/user01/Customer", "maksim.kostromin", "Address:date", "2/2/15"
+hbase> put "/user/user01/Customer", "ivan.ivanov", "Address:street", "Pupkina St."
+hbase> put "/user/user01/Customer", "ivan.ivanov", "Order:date", "3/2/15"
+
+hbase> get "/user/user01/Customer", "maksim.kostromin"
+# output:
+# COLUMN                                                       CELL
+#  Address:city                                                timestamp=1439481605216, value=Odessa
+#  Address:date                                                timestamp=1439481610344, value=2/2/15
+
+hbase> scan "/user/user01/Customer"
+# output:
+# ROW                                                          COLUMN+CELL
+#  ivan.ivanov                                                 column=Address:street, timestamp=1439481614522, value=Pupkina St.
+#  ivan.ivanov                                                 column=Order:date, timestamp=1439481619703, value=3/2/15
+#  maksim.kostromin                                            column=Address:city, timestamp=1439481605216, value=Odessa
+#  maksim.kostromin                                            column=Address:date, timestamp=1439481610344, value=2/2/15
+
+hbase> describe "/user/user01/Customer"
+# output:
+# Table /user/user01/Customer is ENABLED
+# /user/user01/Customer, {TABLE_ATTRIBUTES => {MAX_FILESIZE => '4294967296', METADATA => {'AUTOSPLIT' => 'true', 'MAPR_UUID' => '2bb06895-a77e-b4bb-9f4e-06fcbecc5500', 'MAX_VALUE_SIZE_IN_MEM' => '100'}}
+# COLUMN FAMILIES DESCRIPTION
+# {NAME => 'Address', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'ROW', REPLICATION_SCOPE => '0', COMPRESSION => 'NONE', VERSIONS => '1', TTL => 'FOREVER', MIN_VERSIONS => '0', KEEP_DELETED_CELLS => 'FALSE', BLOCKSIZE => '8192', IN_MEMORY => 'false', BLOCKCACHE => 'true', METADATA => {'compression_raw' => '31'}}
+# {NAME => 'Order', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'ROW', REPLICATION_SCOPE => '0', COMPRESSION => 'NONE', VERSIONS => '1', TTL => 'FOREVER', MIN_VERSIONS => '0', KEEP_DELETED_CELLS => 'FALSE', BLOCKSIZE => '8192', IN_MEMORY => 'false', BLOCKCACHE => 'true', METADATA => {'compression_raw' => '31'}}
+
+hbase> count "/user/user01/Customer", {COLUMNS => ["Order:notexists"]}
+# output:
+# ROW                                                          COLUMN+CELL
+
+hbase> delete "/user/user01/Customer", "ivan.ivanov", "Address:street"
+hbase> get "/user/user01/Customer", "ivan.ivanov"
+# COLUMN                                                       CELL
+#  Order:date                                                  timestamp=1439481619703, value=3/2/15
+
+hbase> disable "/user/user01/Customer"
+hbase> drop "/user/user01/Customer"
+
+hbase> create "/user/user01/MySplitTable", "CF", {SPLITS => ["F", "L", "S"]}
+# => Hbase::Table - /user/user01/MySplitTable
+
+hbase> help
