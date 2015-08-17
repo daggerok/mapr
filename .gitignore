@@ -1,10 +1,13 @@
+# eclipse-gradle
+*/.gitignore
 # eclipse
 .metadata/
 .settings/
 .project
 .classpath
+**/bin/
 # gradle
-**/.gradle/
+*.gradle/
 **/build/
 # idea
 **/.idea/
@@ -12,3 +15,4 @@
 # os hidden
 **/Thumbs.db
 **/.DS_Store
+/build/
