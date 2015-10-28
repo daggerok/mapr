@@ -40,5 +40,5 @@ subprojects {
         with jar
     }
     
-    check dependsOn test
+    check.dependsOn test
 }
